@@ -31,8 +31,8 @@ class ThousandsFormatter extends NumberInputFormatter {
   @override
   String _formatPattern(String digits) {
     if (digits == null || digits.isEmpty) return digits;
-    final number = allowFraction
-        ? double.tryParse(digits) ?? 0.0
+     final number = allowFraction
+        ? _decimalSeparator == ',' ? double.tryParse(digits.replaceAll(',', '.')) : double.tryParse(digits) ?? 0.0
         : int.tryParse(digits) ?? 0;
     final result = (formatter ?? _formatter).format(number);
     if (allowFraction && digits.endsWith(_decimalSeparator)) {
